@@ -18,12 +18,31 @@ async function setReminder() {
     });
 }
 
+function setIconsReminder() {
+    chrome.browserAction.setIcon({ path: {
+        "16": "/images/PauseRed16x.png",
+        "32": "/images/PauseRed32x.png",
+        "48": "/images/PauseRed64x.png",
+        "128": "/images/PauseRed128x.png"
+    }});
+}
+
+function setIconsDefault() {
+    chrome.browserAction.setIcon({ path: {
+        "16": "/images/Pause16x.png",
+        "32": "/images/Pause32x.png",
+        "48": "/images/Pause64x.png",
+        "128": "/images/Pause128x.png"
+    }});
+}
+
+chrome.runtime.onMessage.addListener((req, action) => {
+    if(action.message === "defaultIcons") {
+        setIconsDefault();
+    }
+});
+
 chrome.alarms.onAlarm.addListener(() => {
-    chrome.notifications.create('reminder', {
-        title: 'Time to meditate!',
-        message: 'This is your daily mindfulness reminder!',
-        iconUrl: '/images/Pause32x.png',
-        type: 'basic'
-    });
+    setIconsReminder();
     setReminder().catch(console.error);
 });

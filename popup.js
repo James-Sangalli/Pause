@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(meditationReminderTime >= timeToday || !meditatedToday) {
       document.getElementById("meditatedToday").innerText = `you are due for a meditation!`;
     } else {
+      chrome.runtime.sendMessage({})
       document.getElementById("meditatedToday").innerText = `You have meditated today, congrats!`;
     }
   }
