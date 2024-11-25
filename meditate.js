@@ -36,6 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("timer").hidden = true;
     }
 
+    function saveThoughts() {
+        const thoughts = document.getElementById("thoughts").innerText;
+        localStorage.setItem(new Date().toLocaleDateString(), thoughts);
+    }
+
+    document.getElementById("thoughtHistory").innerText = JSON.stringify(localStorage);
+
     const meditate = async () => {
         document.getElementById("timer").hidden = false;
         const meditationTimeSet = await promisifiedChromeGet("meditationTimeSet");
